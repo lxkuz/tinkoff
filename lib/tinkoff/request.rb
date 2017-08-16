@@ -9,8 +9,14 @@ module Tinkoff
 
     def perform
       prepare_params
-      response = HTTParty.post(@url, body: @params, format: :json).parsed_response
+      response = HTTParty.post(@url, body: @params, format: :json, debug_output: $stdout).parsed_response
       Tinkoff::Payment.new(response)
+    end
+    
+    def apply
+      prepare_params
+      response = HTTParty.post(@url, body: @params, format: :json, debug_output: $stdout).parsed_response
+      return response
     end
 
     private
@@ -24,6 +30,8 @@ module Tinkoff
       @params = @params.sort.to_h
       # Add token (signature)
       @params[:Token] = token
+      # Delete SecretKey
+      @params.delete(:Password)
     end
 
     # Params signature

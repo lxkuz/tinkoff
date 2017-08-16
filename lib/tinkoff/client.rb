@@ -19,6 +19,31 @@ module Tinkoff
       Tinkoff::Request.new('Confirm', params).perform
     end
 
+    # Привязка покупателя
+    def self.add_customer(customer_key, params = {})
+      params = params.merge(CustomerKey: customer_key)
+      Tinkoff::Request.new('AddCustomer', params).perform
+    end
+
+    #Получает данные покупателя
+    def self.get_customer(customer_key, params = {})
+      params = params.merge(CustomerKey: customer_key)
+      Tinkoff::Request.new('GetCustomer', params).perform
+    end
+
+    #Удаляет привязанного покупателя
+    def self.remove_customer(customer_key, params = {})
+      params = params.merge(CustomerKey: customer_key)
+      Tinkoff::Request.new('RemoveCustomer', params).perform
+    end
+
+    #Список карт покупателя
+    def self.get_card_list(customer_key, params = {})
+      puts '2'
+      params = params.merge(CustomerKey: customer_key)
+      Tinkoff::Request.new('GetCardList', params).apply
+    end
+
     # Осуществляет рекуррентный (повторный) платеж — безакцептное списание денежных средств
     # со счета банковской карты Покупателя
     def self.charge(payment_id, rebill_id, params = {})

@@ -1,7 +1,8 @@
 module Tinkoff
   class Notification
     attr_reader :terminal_key, :order_id, :success, :status, :payment_id,
-                :error_code, :amount, :rebill_id, :card_id, :pan, :token
+                :error_code, :amount, :rebill_id, :card_id, :pan, :token,
+                :customer_key
 
     def initialize(params)
       @terminal_key = params['TerminalKey']
@@ -15,6 +16,7 @@ module Tinkoff
       @card_id = params['CardId'].to_i
       @pan = params['Pan']
       @token = params['Token']
+      @customer_key = params['CustomerKey'].to_s
     end
 
     def success?
