@@ -9,7 +9,7 @@ module Tinkoff
 
     def perform
       prepare_params
-      response = HTTParty.post(@url, body: @params, format: :json, debug_output: $stdout).parsed_response
+      response = HTTParty.post(@url, body: @params, format: :json).parsed_response
       Tinkoff::Payment.new(response)
     end
     
