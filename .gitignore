@@ -10,3 +10,4 @@
 
 *.gem
 .byebug_history
+.idea
